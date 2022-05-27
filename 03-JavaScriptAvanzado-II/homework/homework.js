@@ -3,6 +3,14 @@
 // Closures
 
 function counter() {
+ var acum = 0
+  return function sumale(){
+    acum = acum + 1
+    return acum
+  }
+} var clous = counter()
+
+
   /*
   Ejercicio 1
 
@@ -19,9 +27,22 @@ function counter() {
   otroContador()      // 2
   otroContador()      // 3
    */
-}
 
-function cacheFunction(cb) {
+
+  function cacheFunction(cb) {  
+    var cache = {} // En esta variable se almacenaran en forma de objeto {key : value} las propiedades con sus respectivos valores. 
+    return function(arg){  // la funcion que retorna recibe como parametro un unico argumento (arg)
+      if(cache.hasOwnProperty(arg)){ // el metodo hasOwmProperty aplicado a cache verifica si el parametro (arg) se encuentra almacenada en la variable cache con propiedad
+        return cache[arg] // si el argumento (arg) coincide con una de las propiedades del objeto retornara la variable
+      }
+      else { // en caso contrario ejecutara la funcion cb pasandole como parametro el argumento (arg) y agregandole al objeto la propiedad
+        cache[arg] = cb(arg) //Ahora se guardara en cache la propiedad (arg) y su valor sera lo que devuelva la funcion cb pasandole el parametro (arg)
+       return cache[arg]
+      }
+    }
+  } 
+
+
   /*
   Ejercicio 2
 
@@ -32,7 +53,7 @@ function cacheFunction(cb) {
 
   Ejemplo:
   function square(n){
-    return n * n
+    return n * n  
   }
 
   const squareCache = cacheFunction(square)
@@ -41,7 +62,7 @@ function cacheFunction(cb) {
   squareCache(5)    // no volverá a invocar a square, simplemente buscará en la caché cuál es el resultado de square(5) y lo retornará (tip: si usaste un objeto, podés usar hasOwnProperty) 
 
   */
-}
+
 
 // Bind
 
@@ -67,8 +88,8 @@ function getNombre() {
   Usando el método bind() guardar, en las dos variables declaradas a continuación, dos funciones que actúen como getNombre pero retornen el nombre del instructor y del alumno, respectivamente.
 */
 
-let getNombreInstructor;
-let getNombreAlumno;
+let getNombreInstructor = getNombre.bind(instructor)
+let getNombreAlumno = getNombre.bind(alumno)
 
 /*
   Ejercicio 4
@@ -80,9 +101,9 @@ function crearCadena(delimitadorIzquierda, delimitadorDerecha, cadena) {
   return delimitadorIzquierda + cadena + delimitadorDerecha;
 }
 
-let textoAsteriscos;
-let textoGuiones;
-let textoUnderscore;
+let textoAsteriscos = crearCadena.bind(this,"*" , "*")
+let textoGuiones = crearCadena.bind(this,"-" , "-")
+let textoUnderscore = crearCadena.bind(this,"_" , "_")
 
 // No modifiquen nada debajo de esta linea
 // --------------------------------
