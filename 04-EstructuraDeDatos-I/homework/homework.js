@@ -40,17 +40,17 @@ Implementar la clase Queue, sabiendo que es una estructura de tipo FIFO, donde e
 Pueden utilizar class o función constructora.
 */
 
-function Queue() {
-  this.array=[]
-  console.log(this.array)
-  this.enqueue = function(el){
-      return this.array.push(el)
+function Queue() {  // esto representa la funcion constructora de la clase Queue
+  this.array=[] // creamos un array para guardar los datos de la fila
+  console.log(this.array) // 
+  this.enqueue = function(el){  // definimos el metodo(funcion)  enqueue que añadira a la matriz el elemento que pasemos por pametro y usamos el metodo push de Array para añadirlos al final ya que en una cola el primero debe ir quedando de primero 
+      return this.array.push(el) // retornamos array
   },
-  this.dequeue = function(){
+  this.dequeue = function(){ //definimos el metodo(funcion)  dequeue que eliminara de la matriz el primer elemento para esto usamos el metodo Shift de Array de modo que el primer elemento que ingreso sera el primeo en salir 
     return this.array.shift()
 
     },
-    this.size = function(){
+    this.size = function(){ // aplicamos la propiedad length de Array para medir el tamaño de la matris una vez que se han aplicado los w metodos anteriores
       return this.array.length
   
       }
