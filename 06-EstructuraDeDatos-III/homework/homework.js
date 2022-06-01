@@ -11,22 +11,22 @@
   El ábrol utilizado para hacer los tests se encuentra representado en la imagen bst.png dentro del directorio homework.
 */
 
-function BinarySearchTree(valor) {
-    this.valor = valor,
-    this.der = null,
-    this.izq = null
+function BinarySearchTree(value) {
+    this.value = value,
+    this.right = null,
+    this.left = null
     
 }
 
-BinarySearchTree.prototype.insert = function(valor){
+BinarySearchTree.prototype.insert = function(value){
   
-    if(this.valor > valor){ 
-    if(this.izq === null)  this.izq = new BinarySearchTree(valor);
-    else this.izq.insert(valor);
+    if(this.value > value){ 
+    if(this.left === null)  this.left = new BinarySearchTree(value);
+    else this.left.insert(value);
     
-    }else if(this.valor < valor ){ 
-      if(this.der === null) this.der = new BinarySearchTree(valor);
-      else this.der.insert(valor);
+    }else if(this.value < value ){ 
+      if(this.right === null) this.right = new BinarySearchTree(value);
+      else this.right.insert(value);
    }  
 }
  
@@ -41,20 +41,60 @@ console.log(bst)
 
 
 BinarySearchTree.prototype.size = function(){
- if(this.der == null && this.izq== null) return 1;
- if(this.der == null && this.izq != null) return 1 + this.der.size() 
- if(this.izq == null && this.der != null) return 1 + this.izq.size() 
- if(this.izq != null && this.der != null) return this.der.size() + this.izq.size()
+ if(this.left == null && this.right == null) return 1;
+ if(this.left == null && this.right != null) return 1 + this.right.size() 
+ if(this.left != null && this.right == null) return 1 + this.left.size() 
+ if(this.left != null && this.right != null) return this.right.size() + this.izq.size()
 
 }
 
 
-BinarySearchTree.prototype.contains = function(){
+BinarySearchTree.prototype.contains = function(value){
+if(value === this.value) return true
+if(value > this.value){
+  if(this.right == null) return false
+  else return this.right.contains(value)
+
+}else if (value < this.value){
+  if(this.left == null) return false
+  else return this.left.contains(value)
 }
 
-BinarySearchTree.prototype.depthFirstForEach = function(){
+
 }
-BinarySearchTree.prototype.breadthFirstForEach = function(){
+
+BinarySearchTree.prototype.depthFirstForEach = function(cb , order ){
+
+if(order === 'pre-order'){ //root left right
+  cb(this.value)
+if(this.left != null) this.left.depthFirstForEach(cb, order)
+if(this.right != null)this.right.depthFirstForEach(cb, order)
+
+}
+
+else if(order === 'post-order'){ //left right root
+  
+if(this.left != null) this.left.depthFirstForEach(cb, order)
+if(this.right != null)this.right.depthFirstForEach(cb, order)
+cb(this.value)
+} else {
+  if(this.left != null) this.left.depthFirstForEach(cb, order)
+  cb(this.value)
+if(this.right != null)this.right.depthFirstForEach(cb, order)
+
+}
+
+  
+}
+BinarySearchTree.prototype.breadthFirstForEach = function(cb, array = []){
+
+if(this.left !== null) array.push(this.left)
+if(this.right !== null) array.push(this.right)
+cb(this.value)
+if(array.length >  0 ) array.shift().breadthFirstForEach(cb, array)
+
+
+
 }
 
 
