@@ -20,15 +20,15 @@ function BinarySearchTree(valor) {
 
 BinarySearchTree.prototype.insert = function(valor){
   
-    if(valor < this.valor){ 
-    if(this.izq === null)  this.izq = new BinarySearchTree(valor)
-    else this.izq.insert(valor)
+    if(this.valor > valor){ 
+    if(this.izq === null)  this.izq = new BinarySearchTree(valor);
+    else this.izq.insert(valor);
     
-    }else if(valor > this.valor){ 
-      if(this.der === null) this.der = new BinarySearchTree(valor)
-      else this.der.insert(valor)
+    }else if(this.valor < valor ){ 
+      if(this.der === null) this.der = new BinarySearchTree(valor);
+      else this.der.insert(valor);
    }  
-};
+}
  
 var bst = new BinarySearchTree(20)
 console.log(bst)
@@ -41,8 +41,12 @@ console.log(bst)
 
 
 BinarySearchTree.prototype.size = function(){
- 
-}; 
+ if(this.der == null && this.izq== null) return 1;
+ if(this.der == null && this.izq != null) return 1 + this.der.size() 
+ if(this.izq == null && this.der != null) return 1 + this.izq.size() 
+ if(this.izq != null && this.der != null) return this.der.size() + this.izq.size()
+
+}
 
 
 BinarySearchTree.prototype.contains = function(){
@@ -50,7 +54,7 @@ BinarySearchTree.prototype.contains = function(){
 
 BinarySearchTree.prototype.depthFirstForEach = function(){
 }
-BinarySearchTree.prototype.cobreadthFirstForEach = function(){
+BinarySearchTree.prototype.breadthFirstForEach = function(){
 }
 
 
